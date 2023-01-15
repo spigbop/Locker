@@ -10,37 +10,13 @@ namespace Locker.API
     public class LockerTable
     {
         public string Table = String.Empty;
-        public string AssociatedPlugin = String.Empty;
+        public List<string> AssociatedPlugins = new List<string>();
 
-        public TableType SaveType = TableType.FILE_SYSTEM;
+        public LockerTable(string name) {
+            Table = name;
+        }
 
         public Dictionary<string,dynamic> Structure = new Dictionary<string, dynamic>();
-
-        public void PushUpdatesAsync() {
-            
-        }
-
-        private async Task<bool> StreamUpdateTask() {
-            return await Task.Run(async () => {
-                await Task.Delay(0);
-                string _mainstreamstring = String.Empty;
-                foreach(KeyValuePair<string,dynamic> _structure in Structure) {
-                    _mainstreamstring += $"{_structure.Key},{_structure.Value.ToString()}\n"; 
-                }
-                if(SaveType == TableType.FILE_SYSTEM) {
-                    try {
-                        StreamWriter writer = new StreamWriter($@"..\Locker\FileSystem\{Table}");
-                        writer.Write(_mainstreamstring); writer.Close(); writer.Dispose();
-                        return true;
-                    }
-                    catch { return false; }
-                }
-                else {
-                    //mysql stuff
-                    return true;
-                }
-            });
-        }
 
         public bool Exists(string key) {
             return Structure.ContainsKey(key);
@@ -52,18 +28,13 @@ namespace Locker.API
 
         public dynamic Get(string key) {
             dynamic _dynval;
-            Structure.TryGetValue(key, out _dynval);
+            bool _canget = Structure.TryGetValue(key, out _dynval);
+            if(!_canget) return null;
             return _dynval;
         }
 
         public void Set(string key, dynamic newvalue) {
             Structure[key] = newvalue;
-            PushUpdatesAsync();
         }
-    }
-
-    public enum TableType {
-        FILE_SYSTEM,
-        MYSQL
     }
 }

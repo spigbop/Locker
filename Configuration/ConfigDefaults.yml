@@ -1,0 +1,35 @@
+#  _                _             
+# | |              | |            
+# | |     ___   ___| | _____ _ __ 
+# | |    / _ \ / __| |/ / _ \ '__|
+# | |___| (_) | (__|   <  __/ |   
+# |______\___/ \___|_|\_\___|_|   
+
+# Lines starting with # are comments.
+
+# There are two save types: 'localfiles' or 'mysql'
+file-save-type: localfiles
+
+auto-saver:
+  # Locker saves data before the server shuts down. But will need a proper shutdown and
+  # if your server crashes it probably wont save! Enable auto saver to backup your data.
+  enable-auto-saver: false
+  # Time between each save in seconds
+  auto-saver-interval: 3600
+
+# Won't be used if 'file-save-type' is 'mysql'
+localfiles-savepath: ..\Locker\Database\
+
+# Won't be used if 'file-save-type' is 'localfiles'
+mysql-connection:
+  server-ip: 127.0.0.1
+  port: 3306
+  password: 3306
+  database-name: locker-unturned
+  # Supported charsets:
+  charset: utf-8
+
+# Setting this to 'false' won't fill your console with red error texts.
+plugins-can-force-saves: true
+
+# Lockermod Page: https://lockermod.github.io

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,15 +13,17 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -29,7 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup />
+  
   <ItemGroup>
     <Reference Include="Rocket.API, Version=4.9.3.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,6 +66,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="YamlDotNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\YamlDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\UnityEngine.CoreModule.dll</HintPath>
@@ -72,9 +79,11 @@
     <Compile Include="API\LockerData.cs" />
     <Compile Include="API\LockerTable.cs" />
     <Compile Include="Commands\LockerCommand.cs" />
-    <Compile Include="Configuration.cs" />
     <Compile Include="LockerPlugin.cs" />
+    <Compile Include="LockerStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Workers/Workers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Library\Rocket.API.dll" />
@@ -83,6 +92,11 @@
     <Content Include="Library\UnityEngine.CoreModule.dll" />
     <Content Include="Library\UnityEngine.dll" />
     <Content Include="Library\Assembly-CSharp-firstpass.dll" />
+    <Content Include="Library\YamlDotNet.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\ConfigDefaults.yml" />
+  </ItemGroup>
+  
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

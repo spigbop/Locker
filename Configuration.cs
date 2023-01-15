@@ -5,13 +5,13 @@ namespace Locker
 {
     public class Configuration : IRocketPluginConfiguration
     {
-        public string SavePath;
+        public string FileSystemSavePath;
         public bool UseMySQL;
         //public API.SQLConnect MySQL;
 
         public void LoadDefaults()
         {
-            SavePath = @"..\Locker\data.txt";
+            FileSystemSavePath = @"..\Locker\data.txt";
             UseMySQL = false;
             //MySQL = new API.SQLConnect
             //{
