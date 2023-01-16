@@ -2,49 +2,11 @@ using System;
 using System.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using System.Reflection;
 
 namespace Locker {
     public static class Configuration {
         public static ConfigMappings Map;
-
-// Ik. This is a very shitty way of doing it. I will include reading from the embed file later.
-public const string ConfigDefaults = @"
-#  _                _             
-# | |              | |            
-# | |     ___   ___| | _____ _ __ 
-# | |    / _ \ / __| |/ / _ \ '__|
-# | |___| (_) | (__|   <  __/ |   
-# |______\___/ \___|_|\_\___|_|   
-
-# Lines starting with # are comments.
-
-# There are two save types: 'localfiles' or 'mysql'
-file-save-type: localfiles
-
-auto-saver:
-  # Locker saves data before the server shuts down. But will need a proper shutdown and
-  # if your server crashes it probably wont save! Enable auto saver to backup your data.
-  enable-auto-saver: false
-  # Time between each save in seconds
-  auto-saver-interval: 3600
-
-# Won't be used if 'file-save-type' is 'mysql'
-localfiles-savepath: ..\Locker\Database\
-
-# Won't be used if 'file-save-type' is 'localfiles'
-mysql-connection:
-  server-ip: 127.0.0.1
-  port: 3306
-  password: 3306
-  database-name: locker-unturned
-  # Supported charsets:
-  charset: utf-8
-
-# Setting this to 'false' won't fill your console with red error texts.
-plugins-can-force-saves: true
-
-# Lockermod Page: https://lockermod.github.io
-";
 
         public static string _EnvoPath;
         public static string _LockPath;
@@ -61,9 +23,7 @@ plugins-can-force-saves: true
                 Map.FileSaveType = null;
 
                 if(!File.Exists(_ConfigPath)) {
-                    StreamWriter writer = new StreamWriter(_ConfigPath);
-                    writer.Write(ConfigDefaults);
-                    writer.Close(); writer.Dispose();
+                    WriteDefaults();
                 }
             
                 MapConfigsWithFixes();
@@ -75,9 +35,7 @@ plugins-can-force-saves: true
 
                 return true;
             } catch {
-                StreamWriter writer = new StreamWriter(_ConfigPath);
-                writer.Write(ConfigDefaults);
-                writer.Close(); writer.Dispose();
+                WriteDefaults();
                 MapConfigsWithFixes();
                 return false;
             }
@@ -93,6 +51,18 @@ plugins-can-force-saves: true
         private static void MapConfigsWithFixes() {
             Map = ParseTagMaps(File.ReadAllText(_ConfigPath));
             Map.LocalfilesSavepath = Map.LocalfilesSavepath.Replace("..", _LockPath);
+        }
+
+        private static void WriteDefaults() {
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Locker.Configuration.ConfigDefaults.yml");
+            StreamReader reader = new StreamReader(stream);
+            string ConfigDefaults = reader.ReadToEnd();
+            reader.Close(); reader.Dispose();
+            stream.Close(); stream.Dispose();
+                  
+            StreamWriter writer = new StreamWriter(_ConfigPath, false);
+            writer.Write(ConfigDefaults);
+            writer.Close(); writer.Dispose();
         }
     }
 

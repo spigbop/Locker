@@ -44,9 +44,9 @@ namespace Locker.Commands
                     UnturnedChat.Say(caller, $"{_table.Get("testkey").ToString()}", Color.yellow);
                     break;
                 
-                case "testvar":
+                case "serialize":
                     var _serialize = new IDataTypeSerializer();
-                    if(arguments[1] == null) return;
+                    if(arguments[1] == null) { UnturnedChat.Say(caller, "[•] No input to serialize", Color.red); return; }
                     dynamic _dyn = _serialize.Serialize(arguments[1]);
                     UnturnedChat.Say(caller, $"[•] Returns: {_dyn.ToString()} ({_dyn.Type.ToString()})", Color.yellow);
                     break;
