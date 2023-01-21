@@ -14,13 +14,13 @@ namespace Locker {
 
         public static bool LoadConfig() {
             _EnvoPath = Environment.CurrentDirectory;
-            _LockPath = $@"{_EnvoPath}\Rocket\Plugins\Locker";
+            _LockPath = $@"{_EnvoPath}\Plugins\Locker";
             _ConfigPath = $@"{_LockPath}\config.yml";
 
             try {
-                var _MappingsSafe = Map;
+                //var _MappingsSafe = Map;
 
-                Map.FileSaveType = null;
+                //Map.FileSaveType = null;
 
                 if(!File.Exists(_ConfigPath)) {
                     WriteDefaults();
@@ -28,10 +28,10 @@ namespace Locker {
             
                 MapConfigsWithFixes();
                 
-                if(Map.FileSaveType == null) { 
-                    Map = _MappingsSafe;
-                    return false;
-                }
+                //if(Map.FileSaveType == null) { 
+                //    Map = _MappingsSafe;
+                //    return false;
+                //}
 
                 return true;
             } catch {
@@ -59,7 +59,7 @@ namespace Locker {
             string ConfigDefaults = reader.ReadToEnd();
             reader.Close(); reader.Dispose();
             stream.Close(); stream.Dispose();
-                  
+
             StreamWriter writer = new StreamWriter(_ConfigPath, false);
             writer.Write(ConfigDefaults);
             writer.Close(); writer.Dispose();

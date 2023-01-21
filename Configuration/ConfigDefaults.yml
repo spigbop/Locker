@@ -18,7 +18,7 @@ auto-saver:
   auto-saver-interval: 3600
 
 # Won't be used if 'file-save-type' is 'mysql'
-localfiles-savepath: ..\Locker\Database\
+localfiles-savepath: ..\Database\
 
 # Won't be used if 'file-save-type' is 'localfiles'
 mysql-connection:

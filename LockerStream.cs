@@ -3,33 +3,35 @@ using Locker.Workers;
 
 namespace Locker {
     public class LockerStream {
-        public static void Save() {
+        public static bool Save() {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"[•] Saving Locker data to {Configuration.Map.FileSaveType}.");
+            Console.Write($"[•] Saving Locker data to {Configuration.Map.FileSaveType}.\n");
+            Console.ForegroundColor = ConsoleColor.White;
             switch(Configuration.Map.FileSaveType) {
                 case "mysql":
                     
-                    break;
-                
+                    return false;
+
                 default:
                     var _saver = new ILockerSaverFilesystem(Configuration.Map.LocalfilesSavepath);
-                    _saver.Commit();
-                    break;
+                    return _saver.Commit();
             }
         }
 
-        public static void Load() {
+        public static bool Load() {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"[•] Loading Locker data from {Configuration.Map.FileSaveType}.");
+            Console.Write($"[•] Loading Locker data from {Configuration.Map.FileSaveType}.\n");
+            Console.ForegroundColor = ConsoleColor.White;
             switch(Configuration.Map.FileSaveType) {
                 case "mysql":
-                    
-                    break;
+                    return false;
                 
                 default:
-                    var _loader = new ILockerLoaderFilesystem(Configuration.Map.LocalfilesSavepath);
-                    _loader.Commit();
-                    break;
+                    try {
+                        var _loader = new ILockerLoaderFilesystem(Configuration.Map.LocalfilesSavepath);
+                        _loader.Commit();
+                    } catch { return false; }
+                    return true;
             }
         }
     }
