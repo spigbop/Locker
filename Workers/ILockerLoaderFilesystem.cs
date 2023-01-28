@@ -40,9 +40,13 @@ namespace Locker.Workers {
                 return true;
             }
             catch(Exception ex) { 
-                if(ex.GetType() == typeof(System.IO.DirectoryNotFoundException)) { return true; }
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($"[•] Locker Load Panic => {ex.ToString()}   === Unable to load\n");
+                if(ex.GetType() == typeof(System.IO.DirectoryNotFoundException)) {
+                    Console.Write($"[•] Locker has no permission to read from this file. Unable to load :(\n");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    return false;
+                }
+                Console.Write($"[•] Locker Load Panic => {ex.ToString()}   === Unable to load :(\n");
                 Console.ForegroundColor = ConsoleColor.White;
                 return false; }
         }

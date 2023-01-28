@@ -79,6 +79,7 @@
       <HintPath>Library\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
+
   <ItemGroup>
     <Compile Include="API\LockerData.cs" />
     <Compile Include="API\LockerTable.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Workers/IDataTypeSerializer.cs" />
     <Compile Include="Workers/ILockerSaverFilesystem.cs" />
   </ItemGroup>
+
   <ItemGroup>
     <Content Include="Library\Rocket.API.dll" />
     <Content Include="Library\Rocket.Core.dll" />
@@ -100,6 +102,7 @@
     <Content Include="Library\Assembly-CSharp-firstpass.dll" />
     <Content Include="Library\YamlDotNet.dll" />
   </ItemGroup>
+  
   <ItemGroup>
     <EmbeddedResource Include="Configuration\ConfigDefaults.yml" />
   </ItemGroup>

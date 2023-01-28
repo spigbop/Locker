@@ -61,7 +61,7 @@ namespace Locker {
             stream.Close(); stream.Dispose();
 
             StreamWriter writer = new StreamWriter(_ConfigPath, false);
-            writer.Write(ConfigDefaults);
+            writer.Write($"{ConfigDefaults}\n# Locker Configuration file generated {DateTime.Now.ToString()}\n");
             writer.Close(); writer.Dispose();
         }
     }

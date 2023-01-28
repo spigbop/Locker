@@ -1,9 +1,9 @@
-#  _                _             
-# | |              | |            
+#  _                _              A plugin by Xpoxy.
+# | |              | |             https://lockermod.github.io
 # | |     ___   ___| | _____ _ __ 
 # | |    / _ \ / __| |/ / _ \ '__|
 # | |___| (_) | (__|   <  __/ |   
-# |______\___/ \___|_|\_\___|_|   
+# |______\___/ \___|_|\_\___|_|    https://github.com/spigbop/Locker
 
 # Lines starting with # are comments.
 
@@ -17,10 +17,12 @@ auto-saver:
   # Time between each save in seconds
   auto-saver-interval: 3600
 
-# Won't be used if 'file-save-type' is 'mysql'
+# Only used if 'file-save-type' is 'localfiles'
 localfiles-savepath: ..\Database\
+# You can save anywhere you like, make sure file permissions allow it. '..' automatically
+# finds the locker folder. Use forward slashes '/' for OSX operating systems.
 
-# Won't be used if 'file-save-type' is 'localfiles'
+# Only used if 'file-save-type' is 'mysql'
 mysql-connection:
   server-ip: 127.0.0.1
   port: 3306
@@ -31,5 +33,3 @@ mysql-connection:
 
 # Setting this to 'false' won't fill your console with red error texts.
 plugins-can-force-saves: true
-
-# Lockermod Page: https://lockermod.github.io
