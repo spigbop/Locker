@@ -9,6 +9,8 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		bin|Any CPU = bin|Any CPU
+		bin Copy|Any CPU = bin Copy|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -18,5 +20,9 @@ Global
 		{4DAA95A4-0A51-4E03-84D2-D35CECD062C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DAA95A4-0A51-4E03-84D2-D35CECD062C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DAA95A4-0A51-4E03-84D2-D35CECD062C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DAA95A4-0A51-4E03-84D2-D35CECD062C7}.bin|Any CPU.ActiveCfg = bin|Any CPU
+		{4DAA95A4-0A51-4E03-84D2-D35CECD062C7}.bin|Any CPU.Build.0 = bin|Any CPU
+		{4DAA95A4-0A51-4E03-84D2-D35CECD062C7}.bin Copy|Any CPU.ActiveCfg = bin Copy|Any CPU
+		{4DAA95A4-0A51-4E03-84D2-D35CECD062C7}.bin Copy|Any CPU.Build.0 = bin Copy|Any CPU
 	EndGlobalSection
 EndGlobal

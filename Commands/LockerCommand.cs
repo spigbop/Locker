@@ -4,9 +4,6 @@ using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using System.Collections.Generic;
 using UnityEngine;
-using Locker.API;
-using Locker.Workers;
-using System.Linq;
 
 namespace Locker.Commands
 {
@@ -36,8 +33,13 @@ namespace Locker.Commands
                     LockerPlugin.Reload(caller);
                     break;
                 
-                case "saveall":
+                case "save":
                     if(!LockerStream.Save()) { UnturnedChat.Say(caller, "[•] Something went wrong while saving!", Color.red); return; }
+                    UnturnedChat.Say(caller, "[•] Successfully pushed all saves.", Color.yellow);
+                    break;
+
+                case "load":
+                    if(!LockerStream.Load()) { UnturnedChat.Say(caller, "[•] Something went wrong while saving!", Color.red); return; }
                     UnturnedChat.Say(caller, "[•] Successfully pushed all saves.", Color.yellow);
                     break;
 
@@ -45,22 +47,21 @@ namespace Locker.Commands
                     UnturnedChat.Say(caller, "[•] This server is running Locker version-1.0.0 (Pineleaf)", Color.yellow);
                     break;
 
-                case "dbgconfig":
-                    UnturnedChat.Say(caller, $"[•] Path: {Configuration.Map.LocalfilesSavepath}", Color.yellow);
-                    break;
-
-                case "dbgsettable":
-                    LockerData.Table("debug").Set("test", "example");
-                    break;
-
-                case "dbgtable":
-                    UnturnedChat.Say(caller, $"[•] Debug Table Name: {LockerData.Table("debug").Table}", Color.yellow);
-                    UnturnedChat.Say(caller, $"[•] 'test' Structure: {LockerData.Table("debug").Get("test")}", Color.yellow);
+                case "website":
+                    var _uplayer = caller as UnturnedPlayer;
+                    if(_uplayer == null) {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write("[•] https://lockermod.github.io");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else {
+                        _uplayer.Player.sendBrowserRequest("Locker Website", "https://lockermod.github.io");
+                    }
                     break;
 
                 default:
-                    UnturnedChat.Say(caller, $"[•] '{arguments[0]} is not recognized as a subcommand.' ", Color.yellow);
-                    UnturnedChat.Say(caller, "[•] Available Subcommands: 'version', 'reload', 'saveall'", Color.yellow);
+                    UnturnedChat.Say(caller, $"[•] '{arguments[0]} is not recognized as a subcommand.'", Color.yellow);
+                    UnturnedChat.Say(caller, "[•] Available Subcommands: 'version', 'reload', 'website', 'save', 'load'", Color.yellow);
                     break;
             }
         }

@@ -75,12 +75,14 @@ namespace Locker {
     }
 
     public class AutoSaverConfig {
-        public bool EnableAutoSaver { get; set; }
-        public int AutoSaverInterval { get; set; }
+        public bool Enable { get; set; }
+        public int Interval { get; set; }
+        public bool ConsoleSendMessage { get; set; }
     }
 
     public class MySqlInfo {
         public string ServerIp { get; set; }
+        public string UsernameId { get; set; }
         public string Port { get; set; }
         public string Password { get; set; }
         public string DatabaseName { get; set; }

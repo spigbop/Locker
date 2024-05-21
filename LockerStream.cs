@@ -9,12 +9,13 @@ namespace Locker {
             Console.ForegroundColor = ConsoleColor.White;
             switch(Configuration.Map.FileSaveType) {
                 case "mysql":
-                    
+                    var _mysqlsaver = new ILockerSaverMysql();
+                    _mysqlsaver.CommitWithConfig();
                     return false;
 
                 default:
-                    var _saver = new ILockerSaverFilesystem(Configuration.Map.LocalfilesSavepath);
-                    return _saver.Commit();
+                    var _filesaver = new ILockerSaverFilesystem(Configuration.Map.LocalfilesSavepath);
+                    return _filesaver.Commit();
             }
         }
 

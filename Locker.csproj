@@ -33,14 +33,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'bin|AnyCPU' ">
+    <OutputPath>bin\bin\</OutputPath>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'bin Copy|AnyCPU' ">
+    <OutputPath>bin\bin Copy\</OutputPath>
+  </PropertyGroup>
+  
   <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>Library\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>Library\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>Library\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Rocket.API">
+      <HintPath>Library\Rocket.API.dll</HintPath>
+    </Reference>
     <Reference Include="Rocket.API, Version=4.9.3.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\Rocket.API.dll</HintPath>
     </Reference>
+    <Reference Include="Rocket.Core">
+      <HintPath>Library\Rocket.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Rocket.Core, Version=4.9.3.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\Rocket.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rocket.Unturned">
+      <HintPath>Library\Rocket.Unturned.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.Unturned, Version=4.9.3.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -66,9 +92,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityEngine.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>Library\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>Library\YamlDotNet.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -78,11 +113,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\MySql.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="API\LockerData.cs" />
     <Compile Include="API\LockerTable.cs" />
+    <Compile Include="API\Workers\ILockerSaverFilesystem.cs" />
     <Compile Include="Commands\LockerCommand.cs" />
     <Compile Include="LockerPlugin.cs" />
     <Compile Include="LockerStream.cs" />
@@ -91,6 +131,7 @@
     <Compile Include="Workers/ILockerLoaderFilesystem.cs" />
     <Compile Include="Workers/IDataTypeSerializer.cs" />
     <Compile Include="Workers/ILockerSaverFilesystem.cs" />
+    <Compile Include="Workers/ILockerSaverMysql.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -101,6 +142,7 @@
     <Content Include="Library\UnityEngine.dll" />
     <Content Include="Library\Assembly-CSharp-firstpass.dll" />
     <Content Include="Library\YamlDotNet.dll" />
+    <Content Include="Library\MySql.Data.dll" />
   </ItemGroup>
   
   <ItemGroup>

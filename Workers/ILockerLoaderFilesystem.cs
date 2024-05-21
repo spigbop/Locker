@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Security.AccessControl;
 using System.IO;
 using Locker.API;
 
@@ -14,13 +13,12 @@ namespace Locker.Workers {
 
         public bool Commit() {
             var _dir = new DirectoryInfo(_path);
-            DirectorySecurity dSecurity = _dir.GetAccessControl();
             var _serializer = new IDataTypeSerializer();
             LockerData.Structure.Clear();
             try {
                 foreach(var _content in _dir.GetFiles()) {
                     string _rawtext = String.Empty;
-                    var reader = new StreamReader(_path);
+                    var reader = new StreamReader(Path.Combine(_path, _content.Name));
                     _rawtext = reader.ReadToEnd();
                     reader.Close(); reader.Dispose();
 
@@ -32,7 +30,7 @@ namespace Locker.Workers {
                         }
                     }
 
-                    var _locktable = new LockerTable(_content.Name);
+                    var _locktable = new LockerTable(_content.Name.Split('.')[0]);
                     _locktable.Structure = _dict;
 
                     LockerData.Structure.Add(_locktable);
@@ -48,7 +46,8 @@ namespace Locker.Workers {
                 }
                 Console.Write($"[•] Locker Load Panic => {ex.ToString()}   === Unable to load :(\n");
                 Console.ForegroundColor = ConsoleColor.White;
-                return false; }
+                return false;
+            }
         }
     }
 }

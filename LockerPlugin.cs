@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Rocket.Core.Plugins;
 using Rocket.Unturned.Chat;
 using Rocket.API;
 using UnityEngine;
 using Locker.API;
 
-namespace Locker
-{
+namespace Locker {
     public class LockerPlugin : RocketPlugin
     {
         public static LockerPlugin Instance;
-        
+
         protected override void Load() {
             Instance = this;
             if(!InitializeResources()) {
@@ -21,11 +21,11 @@ namespace Locker
             Console.ForegroundColor = ConsoleColor.Yellow;
             if(LockerData.Structure.Count == 0) {
                 Console.Write("  _                _              Welcome to Locker 1.0.0-pineleaf\n");
-                Console.Write(" | |              | |              ~ A plugin by Xpoxy.\n");
+                Console.Write(" | |              | |                 ~ A plugin by Xpoxy.\n");
                 Console.Write(" | |     ___   ___| | _____ _ __  To start use: /locker\n");
-                Console.Write(" | |    / _ \ / __| |/ / _ \ '__| This huge text will not appear\n");
+                Console.Write(" | |    / _ \\ / __| |/ / _ \\ '__| This huge text will not appear\n");
                 Console.Write(" | |___| (_) | (__|   <  __/ |    after locker saves some data!\n");
-                Console.Write(" |______\___/ \___|_|\_\___|_|    For more visit: lockermod.github.io\n");
+                Console.Write(" |______\\___/ \\___|_|\\_\\___|_|    For more visit: lockermod.github.io\n");
             }
             Console.Write("[•] Locker Loaded. Messages starting with [•] are sent from Locker API.\n");
             Console.ForegroundColor = ConsoleColor.White;
@@ -56,16 +56,20 @@ namespace Locker
 
         public static bool InitializeResources() {
             if(!Configuration.LoadConfig()) { TagResourcesFail = "configuration"; return false; }
+            if(Configuration.Map.AutoSaver.Enable) Task.Run(async () => await AutoSaver());
             if(!LockerStream.Load()) { TagResourcesFail = "database"; return false; }
             return true;
         }
 
-        public IEnumerator AutoSaver() {
-            while(true) {
-                if(!Configuration.Map.AutoSaver.EnableAutoSaver) yield break;
-                yield return new WaitForSeconds(Configuration.Map.AutoSaver.AutoSaverInterval);
-                if(!LockerStream.Save()) {
-                    yield break;
+        private static async Task AutoSaver() {
+            for(;;) {
+                await Task.Delay(Configuration.Map.AutoSaver.Interval * 1000);
+                if(!Configuration.Map.AutoSaver.Enable) break;
+                if(!LockerStream.Save()) break;
+                if(Configuration.Map.AutoSaver.ConsoleSendMessage) {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("[•] Successfully autosaved Locker data.\n");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }

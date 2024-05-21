@@ -13,9 +13,11 @@ file-save-type: localfiles
 auto-saver:
   # Locker saves data before the server shuts down. But will need a proper shutdown and
   # if your server crashes it probably wont save! Enable auto saver to backup your data.
-  enable-auto-saver: false
+  enable: false
   # Time between each save in seconds
-  auto-saver-interval: 3600
+  interval: 3600
+  # Wheather or not to send console messages after auto saving.
+  console-send-message: true
 
 # Only used if 'file-save-type' is 'localfiles'
 localfiles-savepath: ..\Database\
@@ -25,11 +27,9 @@ localfiles-savepath: ..\Database\
 # Only used if 'file-save-type' is 'mysql'
 mysql-connection:
   server-ip: 127.0.0.1
+  username-id: root
   port: 3306
   password: 3306
   database-name: locker-unturned
-  # Supported charsets:
-  charset: utf-8
-
-# Setting this to 'false' won't fill your console with red error texts.
-plugins-can-force-saves: true
+  # Supported charsets: https://dev.mysql.com/doc/refman/8.0/en/charset-charsets.html
+  charset: utf8mb4
